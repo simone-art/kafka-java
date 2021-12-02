@@ -1,5 +1,6 @@
 package expertostech.kafka.eventos;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
 
+@Slf4j
 public class ProdutorEvento {
 
     private final Producer<String, String> producer;
@@ -47,6 +49,8 @@ public class ProdutorEvento {
         mensagem += "|" + chave;
         mensagem += "|NOVA_MENSAGEM";
 
+
+        log.info("Iniciando envio da mensagem");
         //Código que registro o tópico
         ProducerRecord<String, String> record = new ProducerRecord<String, String>("RegistroEvento", chave, mensagem);
         //Código que envia o tópico
@@ -55,5 +59,6 @@ public class ProdutorEvento {
         producer.flush();
         //Aplicacão será executada toda vez que se tenha uma mensagem
         producer.close();
+        log.info("Mensagem enviada com sucesso [{}]", mensagem);
     }
 }
