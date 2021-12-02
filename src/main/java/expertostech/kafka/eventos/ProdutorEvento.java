@@ -1,8 +1,10 @@
 package expertostech.kafka.eventos;
 
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 
 import java.util.Properties;
+import java.util.UUID;
 
 public class ProdutorEvento {
 
@@ -26,11 +28,14 @@ public class ProdutorEvento {
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("serializer.class", "kafka.serializer.DefaultEncoder");
-     return null;
+        return new KafkaProducer<String, String>(properties);
     }
 
     //Método que executará o envio da mensagem
     public void executar(){
+
+        //Permite identificar a chave única com o código hexadecimal
+        String chave = UUID.randomUUID().toString();
 
     }
 }
