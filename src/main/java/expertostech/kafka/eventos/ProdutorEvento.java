@@ -2,7 +2,11 @@ package expertostech.kafka.eventos;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.protocol.types.Field;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -36,6 +40,20 @@ public class ProdutorEvento {
 
         //Permite identificar a chave única com o código hexadecimal
         String chave = UUID.randomUUID().toString();
+        //Formatando a data
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+        String mensagem = sdf.format(new Date());
+        //Concatenar a mensagem
+        mensagem += "|" + chave;
+        mensagem += "|NOVA_MENSAGEM";
 
+        //Código que registro o tópico
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>("RegistroEvento", chave, mensagem);
+        //Código que envia o tópico
+        producer.send(record);
+        //Código que garante o envio do tópico
+        producer.flush();
+        //Aplicacão será executada toda vez que se tenha uma mensagem
+        producer.close();
     }
 }
