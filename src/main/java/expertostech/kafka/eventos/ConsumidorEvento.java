@@ -33,9 +33,9 @@ public class ConsumidorEvento {
         //Configurando as propiedades do kafka e sua serialização
         Properties properties = new Properties();
         properties.put("bootstrap.servers", "localhost:9092");
-        properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        properties.put("serializer.class", "kafka.serializer.DefaultEncoder");
+        properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        properties.put("group.id", "default");
 
         return new KafkaConsumer<String, String>(properties);
     }

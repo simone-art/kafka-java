@@ -1,4 +1,4 @@
-package expertostech.kafka.producer;
+package expertostech.kafka.consumer;
 
 import expertostech.kafka.eventos.ConsumidorEvento;
 import lombok.extern.slf4j.Slf4j;
